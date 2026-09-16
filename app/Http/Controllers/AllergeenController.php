@@ -7,13 +7,12 @@ use Illuminate\Http\Request;
 
 class AllergeenController extends Controller
 {
+    
+    private $allergeenModel;
 
-    private $allergeenModel
-
-    public function __construct()
+    Public function __construct()
     {
         $this->allergeenModel = new AllergeenModel();
-        
     }
 
 
