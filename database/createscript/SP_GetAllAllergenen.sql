@@ -9,8 +9,7 @@ BEGIN
     SELECT 
          ALGE.Id             
         ,ALGE.Naam            
-        ,ALGE.Omschrijving    
-        ,PRD.Naam             
+        ,ALGE.Omschrijving                 
         ,PRD.Barcode         
     FROM Allergeen AS ALGE
     LEFT JOIN ProductPerAllergeen AS PRA ON ALGE.Id = PRA.AllergeenId
