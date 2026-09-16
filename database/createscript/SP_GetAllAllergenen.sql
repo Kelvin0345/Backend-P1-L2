@@ -1,4 +1,4 @@
-use laravel;
+USE `laravel`;
 
 DROP PROCEDURE IF EXISTS SP_GetAllAllergenen;
 
@@ -6,13 +6,15 @@ DELIMITER $$
 
 CREATE PROCEDURE SP_GetAllAllergenen()
 BEGIN
-    SELECT ALGE.Id
-          ,ALGE.Naam 
-          ,ALGE.Omschrijving
-          ,PRD.Naam AS ProductNaam 
+    SELECT 
+         ALGE.Id             
+        ,ALGE.Naam            
+        ,ALGE.Omschrijving    
+        ,PRD.Naam             
+        ,PRD.Barcode         
     FROM Allergeen AS ALGE
-    LEFT JOIN ProductAllergeen AS PRA ON ALGE.Id = PRA.AllergeenId
-    LEFT JOIN Product AS P ON P.ProductId = PRD.Id;
+    LEFT JOIN ProductPerAllergeen AS PRA ON ALGE.Id = PRA.AllergeenId
+    LEFT JOIN Product AS PRD ON PRA.ProductId = PRD.Id;
 END$$
 
 DELIMITER ;
