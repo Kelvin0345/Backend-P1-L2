@@ -13,6 +13,7 @@ class AllergeenController extends Controller
     public function __construct()
     {
         $this->allergeenModel = new AllergeenModel();
+        
     }
 
 
