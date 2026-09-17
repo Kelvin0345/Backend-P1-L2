@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AllergeenModel;
 use Illuminate\Http\Request;
-use Exception;
+
 
 class AllergeenController extends Controller
 {
@@ -29,10 +29,12 @@ class AllergeenController extends Controller
             'allergenen' => $allergenen
 
         ]); 
-        } catch (Exception $e) {
+        } catch (\Exception $exception) {
 
-            echo "Er is van dit product op dit moment geen voorraad aanwezig, de verwachte eerstvolgende levering is: 30-04-2023 ”". 
-            $e->getMessage();
+            return redirect()
+            
+                ->back()
+                ->with('error', 'Categorie kon niet worden bijgewerkt.');
         }
  
       

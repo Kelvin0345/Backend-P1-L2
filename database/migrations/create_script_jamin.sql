@@ -1,21 +1,3 @@
--- Step: 01
--- Goal: Create a new database magazijn_beheer
--- **********************************************************************************
--- Version      Date:                Author:                     Description:
--- *******      **********           ****************            ******************
--- 01           10-09-2026           Kelvin                      New
--- **********************************************************************************/
-
--- Check if the database exists
-DROP DATABASE IF EXISTS `laravel`;
-
--- Create a new Database
-CREATE DATABASE IF NOT EXISTS `laravel`;
-
--- Use database magazijn_beheer
-Use `laravel`;
-
-
 -- Step: 02
 -- Goal: Create a new table Product
 -- **********************************************************************************
@@ -374,3 +356,4 @@ VALUES
     ,(17, 5, 13, '2024-10-12', 23, NULL, 1, NULL, SYSDATE(6), SYSDATE(6));
     
     
+  
