@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AllergeenController;
+use App\Http\Controllers\MagazijnmedewerkerController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -13,6 +14,10 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/Allergeen', [AllergeenController::class, 'index'])->name('allergeen.index');
+
+Route::get('/magazijnmedewerker', [MagazijnmedewerkerController::class, 'index'])
+    ->name('magazijnmedewerker.index')
+    ->middleware(['auth', 'role:magazijnmedewerker']);
 
 
 Route::middleware('auth')->group(function () {
