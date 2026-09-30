@@ -7,13 +7,12 @@ DELIMITER $$
 CREATE PROCEDURE SP_GetAllAllergenen()
 BEGIN
     SELECT 
-         ALGE.Id             
-        ,ALGE.Naam            
-        ,ALGE.Omschrijving                 
-        ,PRD.Barcode         
-    FROM Allergeen AS ALGE
-    LEFT JOIN ProductPerAllergeen AS PRA ON ALGE.Id = PRA.AllergeenId
-    LEFT JOIN Product AS PRD ON PRA.ProductId = PRD.Id;
+         PROD.*            
+        ,ALLE.*        
+    FROM Product AS PROD
+    Inner JOIN ProductPerAllergeen AS PRAL ON PROD.Id = PRAL.ProductId
+    INNER JOIN Allergeen as ALLE ON ALLE.Id = PRAL.AllergeenId
+    WHERE PROD.Id = 1;
 END$$
 
 DELIMITER ;

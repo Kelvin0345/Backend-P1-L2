@@ -13,7 +13,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/Allergeen', [AllergeenController::class, 'index'])->name('allergeen.index');
+Route::get('/Allergeen', [AllergeenController::class, 'index'])->name('Allergeen.index');
 
 Route::get('/magazijnmedewerker', [MagazijnmedewerkerController::class, 'index'])
     ->name('magazijnmedewerker.index')
