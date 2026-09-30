@@ -2,20 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MagazijnModel;
 use Illuminate\Http\Request;
 
 class MagazijnmedewerkerController extends Controller
 {
+    private $MagazijnModel;
+
+    public function __construct()
+    {
+        $this->MagazijnModel = new MagazijnModel();
+    }
+
+
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $magazijn = $this->MagazijnModel->SP_GetAllMagazijn();
+
         return view('Magazijnmedewerker.index', [
-            'title' => 'Overzicht magazijn jamin'
+            'title' => 'Magazijn',
+            'magazijnen' => $magazijn
         ]);
-        
     }
 
     /**
