@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AllergeenModel;
+use App\Models\LeverancierModel;
 use Illuminate\Http\Request;
 
-
-class AllergeenController extends Controller
+class LeverancierController extends Controller
 {
-    
-    private $allergeenModel;
+
+    private $leverancierModel;
 
     Public function __construct()
     {
-        $this->allergeenModel = new AllergeenModel();
+        $this->leverancierModel = new LeverancierModel();
     }
 
     /**
@@ -21,24 +20,22 @@ class AllergeenController extends Controller
      */
     public function index(int $id) 
     {
-        // echo "Hoi";exit();
-    
-        $allergenen = $this->allergeenModel->sp_GetAllergeenById($id);
-           //var_dump($allergenen);exit();
-            return view('allergenen.index', [
-            'title' =>'Allergenen',
-            'allergenen' => $allergenen
+        //
+        $leverancier = $this->leverancierModel->sp_GetLeverantieById($id); 
+        return view('Leverancier.index', [
+            'title' =>'leverancier',
+            'leverancier' => $leverancier
 
         ]); 
        
- 
-      
+
+
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create() 
     {
         //
     }

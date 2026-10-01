@@ -50,8 +50,7 @@
 
                         <tbody>
                             @forelse ($magazijnen as $magazijn)
-                                <tr class="border-b border-gray-200 hover:bg-gray-50">
-
+                                <tr class="border-b border-gray-200 hover:bg-gray-50 text-center">
                                     <td class="px-4 py-3">
                                         {{ $magazijn->Barcode }}
                                     </td>
@@ -68,20 +67,20 @@
                                         {{ $magazijn->AantalAanwezig }}
                                     </td>
 
-                                    <td>
+                                    <td class="px-4 py-3">
                                         <a href="{{ route('Allergeen.index', $magazijn->ProductId) }}"
+                                            class="btn btn-outline-danger btn-sm">
+                                            X
+                                        </a>
+                                    </td>
+
+                                    <td class="px-4 py-3">
+                                        <a href="{{ route('Leverancier.index', $magazijn->ProductId) }}"
                                             class="btn btn-outline-primary btn-sm">
                                             ?
                                         </a>
                                     </td>
-
-                                    <td class="px-4 py-3 text-center">
-                                        {{-- Leveranciersinformatie toevoegen --}}
-                                        -
-                                    </td>
-
-                                </tr>
-                            @empty
+                            </tr> @empty
                                 <tr>
                                     <td colspan="6" class="text-center text-gray-500 py-4">
                                         Geen magazijngegevens gevonden.

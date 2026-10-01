@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Overzicht Allergenen') }}
+            {{ __('Overzicht Leverancier') }}
         </h2>
     </x-slot>
 
@@ -11,15 +11,13 @@
 
                 <!-- Product Informatie -->
                 <div class="p-6 border-b border-gray-200">
-                    {{-- @foreach ($allergenen as $allergeen)
+                    
                     <div class="text-gray-700 space-y-1">
-                        <p><strong>Naam:</strong> {{ $allergeen->Naam }}</p>
-                        <p><strong>Barcode:</strong> {{ $allergeen->Barcode }}</p>
-                    </div>
-                    @endforeach --}}
-                    <div class="text-gray-700 space-y-1">
-                        <p><strong>Naam:</strong> {{ $allergenen[0]->Naam }}</p>
-                        <p><strong>Barcode:</strong> {{ $allergenen[0]->Barcode }}</p>
+                        <p><strong>NaamLeverancier:</strong> {{ $leverancier[0]['NaamLeverancier'] }}</p>
+                        <p><strong>ContactPersoon:</strong> {{ $leverancier[0]['Contactpersoon'] }}</p>
+                        <p><strong>LeverancierNummer:</strong> {{ $leverancier[0]['LeverancierNummer'] }}</p>
+                        <p><strong>Mobiel:</strong> {{ $leverancier[0]['Mobiel'] }}</p>
+                        <p><strong>Datum eerstvolgende levering:</strong> {{ $leverancier[0]['DatumEerstVolgendeLevering'] }}</p>
                     </div>
                 </div>
 
@@ -28,21 +26,26 @@
                     <table class="table w-full">
                         <thead>
                             <tr>
-                                <th>Naam</th>
-                                <th>Omschrijving</th>
+                                <th>NaamProduct</th>
+                                <th>DatumLaatsteLevering</th>
+                                <th>Aantal</th>
+                                <th>DatumEerstVolgendeLevering</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($allergenen as $allergeen)
-                                @if ($allergeen->NaamAllergeen != NULL)
+                            @forelse ($leverancier as $leveranciers)
+                                @if ($leverancier->DatumEerstVolgendeLevering != NULL)
                                     <tr>
-                                        <td>{{ $allergeen->NaamAllergeen }}</td>
-                                        <td>{{ $allergeen->Omschrijving }}</td>
+                                        <td>{{ $leveranciers->NaamProduct }}</td>
+                                        <td>{{ $leveranciers->DatumLaatsteLevering }}</td>
+                                        <td>{{ $leveranciers->Aantal }}</td>
+                                        <td>{{ $leveranciers->DatumEerstVolgendeLevering }}</td>
+
                                     </tr>
                                 @else
                                     <tr>
                                         <td colspan="2" class="text-center py-4 text-gray-500">
-                                            In dit product zitten geen stoffen die een allergische reactie kunnen veroorzaken
+                                            Er is van dit product op dit moment geen voorraad aanwezig, de verwachte eerstvolgende levering is: 30-04-2023
                                         </td>
                                     </tr>
                                 @endif

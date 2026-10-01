@@ -24,7 +24,7 @@ class MagazijnmedewerkerController extends Controller
         $magazijn = $this->MagazijnModel->SP_GetAllMagazijn();
 
         return view('Magazijnmedewerker.index', [
-            'title' => 'Magazijn',
+            'title' => 'Overzicht Magazijn Jamin',
             'magazijnen' => $magazijn
         ]);
     }
