@@ -31,12 +31,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($leverancier as $item)
+                            @forelse ($leverancier as $leveranciers)
                                 <tr class="border-b">
-                                    <td class="py-2">{{ $item->NaamProduct  }}</td>
-                                    <td class="py-2">{{ $item->DatumLaatsteLevering }}</td>
-                                    <td class="py-2">{{ $item->Aantal  }}</td>
-                                    <td class="py-2">{{ $item->DatumEerstVolgendeLevering }}</td>
+                                    <td class="py-2">{{ $leveranciers->NaamProduct  }}</td>
+                                    <td class="py-2">{{ $leveranciers->DatumLaatsteLevering }}</td>
+                                    <td class="py-2">{{ $leveranciers->Aantal  }}</td>
+                                    <td class="py-2">{{ $leveranciers->DatumEerstVolgendeLevering }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
