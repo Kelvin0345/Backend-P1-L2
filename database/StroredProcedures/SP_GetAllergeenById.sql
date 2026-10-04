@@ -9,15 +9,16 @@ CREATE PROCEDURE SP_GetAllergeenById(
 )
 BEGIN
     SELECT 
-          PROD.Naam as Naam
-         ,PROD.Barcode Barcode
-         ,ALLE.Naam as NaamAllergeen  
-         ,ALLE.Omschrijving    
+          PROD.Naam AS Naam
+         ,PROD.Barcode AS Barcode
+         ,ALLE.Naam AS NaamAllergeen
+         ,ALLE.Omschrijving
     FROM Product AS PROD
-    LEFT JOIN ProductPerAllergeen AS PRAL ON PROD.Id = PRAL.ProductId
-    INNER JOIN Allergeen as ALLE ON ALLE.Id = PRAL.AllergeenId
+    LEFT JOIN ProductPerAllergeen AS PRAL 
+        ON PROD.Id = PRAL.ProductId
+    LEFT JOIN Allergeen AS ALLE 
+        ON ALLE.Id = PRAL.AllergeenId
     WHERE PROD.Id = p_id;
 END$$
 
 DELIMITER ;
-
