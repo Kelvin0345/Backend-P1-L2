@@ -13,4 +13,9 @@ class AllergeenModel extends Model
             'id' => $id
         ]);
     }
+
+    public function sp_GetAllLeverancier()
+    {
+        return DB::select('CALL SP_GetAllLeverancier');
+    }
 }
