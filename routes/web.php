@@ -24,6 +24,8 @@ Route::get('/magazijnmedewerker', [MagazijnmedewerkerController::class, 'index']
     ->middleware(['auth', 'role:magazijnmedewerker']);
 
 
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

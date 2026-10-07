@@ -27,10 +27,9 @@ class LeverancierController extends Controller
             'leverancier' => $leverancier
 
         ]); 
-       
-
-
     }
+
+    
 
     /**
      * Show the form for creating a new resource.
