@@ -23,7 +23,16 @@
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                         <x-nav-link :href="route('magazijnmedewerker.index')" 
                                     :active="request()->routeIs('magazijnmedewerker.index')">
-                            {{ __('Magazijnmedewerker') }}
+                            {{ __('Magazijn') }}
+                        </x-nav-link>
+                    </div>
+                @endif
+
+                @if (Auth::check() && Auth::user()->rolename === 'magazijnmedewerker')
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('Leverancierpagina.index')" 
+                                    :active="request()->routeIs('Leverancierpagina.index')">
+                            {{ __('Leverancier') }}
                         </x-nav-link>
                     </div>
                 @endif

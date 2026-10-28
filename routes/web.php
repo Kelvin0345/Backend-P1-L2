@@ -18,13 +18,16 @@ Route::get('/Allergeen/{id}', [AllergeenController::class, 'index'])->name('Alle
 
 Route::get('/Leverancier/{id}', [LeverancierController::class, 'index'])->name('Leverancier.index');
 
+Route::get('/Leverancierpagina/{id}/producten', [LeverancierController::class, 'getGeleverdeProductenByLeverancierId'])->name('leverancier.producten');
 
 Route::get('/magazijnmedewerker', [MagazijnmedewerkerController::class, 'index'])
     ->name('magazijnmedewerker.index')
     ->middleware(['auth', 'role:magazijnmedewerker']);
 
+Route::get('/Leverancierpagina', [LeverancierController::class, 'LeverancierPagina'])
+    ->name('Leverancierpagina.index');
 
-
+Route::get('/leverancier/{id}/geleverde-producten',  [LeverancierController::class, 'getGeleverdeProductenByLeverancierId'])->name('leverancier.geleverdeproducten');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

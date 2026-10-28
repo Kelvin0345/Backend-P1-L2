@@ -10,7 +10,7 @@ class LeverancierController extends Controller
 
     private $leverancierModel;
 
-    Public function __construct()
+    public function __construct()
     {
         $this->leverancierModel = new LeverancierModel();
     }
@@ -18,23 +18,47 @@ class LeverancierController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(int $id) 
+    public function index(int $id)
     {
         //
-        $leverancier = $this->leverancierModel->sp_GetLeverantieById($id); 
+        $leverancier = $this->leverancierModel->sp_GetLeverantieById($id);
+
         return view('Leverancier.index', [
-            'title' =>'leverancier',
+            'title' => 'leverancier',
             'leverancier' => $leverancier
 
-        ]); 
+        ]);
     }
 
-    
+    // aparte pagine voor leverancier
+    public function LeverancierPagina()
+    {
+        $leverancierPagina = $this->leverancierModel->sp_GetAllLeverancier();
+              #  var_dump($leverancierPagina);exit();
+        return view('Leverancierpagina.index', [
+            'title' => 'Overzicht Leveranciers',
+            'leverancierPagina' => $leverancierPagina
+        ]);
+    }
+
+    public function getGeleverdeProductenByLeverancierId($id)
+    {
+        $geleverdeProducten = $this->leverancierModel->sp_GetGeleverdeProductenByLeverancierId($id);
+        return view('Leverancierpagina.geleverdeproducten', [
+            'title' => 'Geleverde Producten',
+            'geleverdeProducten' => $geleverdeProducten
+        ]);
+    }
+
+
+
+
+
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create() 
+    public function create()
     {
         //
     }

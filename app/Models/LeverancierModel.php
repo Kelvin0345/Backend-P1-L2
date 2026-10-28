@@ -14,4 +14,16 @@ class LeverancierModel extends Model
             'id' => $id
         ]);
     }
+
+    public function sp_GetAllLeverancier()
+    {
+        return DB::select('CALL SP_GetAllLeverancier');
+    }
+
+     public function sp_GetGeleverdeProductenByLeverancierId(int $id)
+    {
+        return DB::select('CALL SP_GetGeleverdeProductenByLeverancierId(:id)', [
+            'id' => $id
+        ]);
+    }
 }
