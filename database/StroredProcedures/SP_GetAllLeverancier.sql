@@ -11,6 +11,7 @@ BEGIN
         ,LEVE.Contactpersoon AS Contactpersoon
         ,LEVE.Leveranciernummer
         ,LEVE.Mobiel
+        ,LEVE.Id AS LeverancierId
         ,COUNT(DISTINCT PROD.Naam) AS AantalVerschillendeProducten
     FROM Leverancier AS LEVE
     INNER JOIN ProductPerLeverancier AS PPLE ON LEVE.Id = PPLE.LeverancierId

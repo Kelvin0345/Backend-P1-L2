@@ -30,10 +30,12 @@ class AllergeenController extends Controller
             'allergenen' => $allergenen
 
         ]); 
-       
- 
-      
+     
     }
+
+    
+
+
 
     /**
      * Show the form for creating a new resource.
