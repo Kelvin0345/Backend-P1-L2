@@ -33,20 +33,34 @@
                     </div>
                 @endif
 
-                {{-- Gegevens van Product en Leverancier (Wireframe 4) --}}
+                {{-- Gegevens van Product en Leverancier (Gebaseerd op de SQL aliassen) --}}
                 <div class="mb-6 space-y-2 text-gray-700 bg-gray-50 p-4 rounded-lg border border-gray-200">
-                    <p><strong>Product:</strong> {{ $product->Naam ?? 'Onbekend' }}</p>
-                    <p><strong>Leverancier:</strong> {{ $leverancier[0]->Naam ?? $leverancier->Naam ?? 'Onbekend' }}</p>
-                    <p><strong>Contactpersoon:</strong>
-                        {{ $leverancier[0]->ContactPersoon ?? $leverancier->ContactPersoon ?? 'Onbekend' }}</p>
-                    <p><strong>Mobiel:</strong> {{ $leverancier[0]->Mobiel ?? $leverancier->Mobiel ?? 'Onbekend' }}</p>
+                    <p>
+                        <strong>Product:</strong>
+                        {{ $product->Naam ?? ($leverancier[0]->NaamProduct ?? 'Onbekend product') }}
+                    </p>
+
+                    <p>
+                        <strong>Leverancier:</strong>
+                        {{ $leverancier[0]->NaamLeverancier ?? '' }}
+                    </p>
+
+                    <p>
+                        <strong>Contactpersoon:</strong>
+                        {{ $leverancier[0]->Contactpersoon ?? '' }}
+                    </p>
+
+                    <p>
+                        <strong>Mobiel:</strong>
+                        {{ $leverancier[0]->Mobiel ?? '' }}
+                    </p>
                 </div>
 
-                {{-- Formulier voor Nieuwe Levering --}}
-                <form action="{{ route('leverancier.nieuweLeveringFormulier') }}" method="POST" class="space-y-4">
+                {{-- Formulier voor Nieuwe Levering (Actie wijst nu naar de POST route) --}}
+                <form action="{{ route('leverancier.nieuweLevering') }}" method="POST" class="space-y-4">
                     @csrf
 
-                    <input type="hidden" name="productId" value="{{ $product->Id ?? '' }}">
+                    <input type="hidden" name="productId" value="{{ $product->Id ?? ($productId ?? '') }}">
                     <input type="hidden" name="leverancierId" value="{{ $leverancierId ?? '' }}">
 
                     {{-- Aantal producteenheden --}}
@@ -92,8 +106,6 @@
                         </div>
                     </div>
                 </form>
-
-
 
             </div>
         </div>

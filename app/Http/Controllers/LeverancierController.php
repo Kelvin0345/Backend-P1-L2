@@ -51,13 +51,47 @@ class LeverancierController extends Controller
         ]);
     }
 
-    public function nieuweLeveringFormulier()
+    /**
+     * Toon het formulier voor een nieuwe levering op basis van query parameters.
+     */
+    /**
+     * Toon het formulier voor een nieuwe levering.
+     */
+    public function nieuweLeveringFormulier(Request $request)
     {
-        return view('Leverancierpagina.nieuweLevering');
+        $productId = $request->input('productId');
+        $leverancierId = $request->input('leverancierId') ?? $request->input('id');
+
+        if (!$leverancierId || !$productId) {
+            abort(400, 'Leverancier ID of Product ID ontbreekt in de URL.');
+        }
+
+        // 1. Haal de leverancier op (zodat $leverancier[0] werkt in je view)
+        $leverancier = $this->leverancierModel->sp_GetLeverantieById($leverancierId);
+
+        if (empty($leverancier)) {
+            abort(404, 'Leverancier niet gevonden.');
+        }
+
+        // 2. Haal het product op (pas 'product' aan naar jouw tabelnaam indien nodig, bijv. 'products')
+        $product = \Illuminate\Support\Facades\DB::table('product')
+            ->where('Id', $productId)
+            ->first();
+
+        if (!$product) {
+            abort(404, 'Product niet gevonden.');
+        }
+
+        // 3. Geef alle benodigde variabelen mee aan de view
+        return view('Leverancierpagina.nieuweLevering', [
+            'product' => $product,
+            'leverancier' => $leverancier,
+            'leverancierId' => $leverancierId,
+        ]);
     }
 
     public function nieuweLevering(Request $request)
-    {   
+    {
         // $geleverdeProducten = $this->leverancierModel->sp_GetGeleverdeProductenByLeverancierId($id);
         // // var_dump($geleverdeProducten);exit();
         // return view('leverancier.nieuweLeveringFormulier', [
