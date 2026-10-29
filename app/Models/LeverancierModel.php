@@ -34,7 +34,7 @@ class LeverancierModel extends Model
         ?string $datumEerstVolgendeLevering
     ) {
         return DB::statement(
-            'CALL SP_nieuweLevering()',
+            'CALL SP_nieuweLevering(?, ?, ?, ?)', // <-- Added 4 placeholders here
             [
                 $productId,
                 $leverancierId,
@@ -43,6 +43,4 @@ class LeverancierModel extends Model
             ]
         );
     }
-
-
 }

@@ -67,7 +67,7 @@ class LeverancierController extends Controller
         }
 
         // 1. Haal de leverancier op (zodat $leverancier[0] werkt in je view)
-        $leverancier = $this->leverancierModel->sp_GetLeverantieById($leverancierId);
+        $leverancier = $this->leverancierModel->sp_GetGeleverdeProductenByLeverancierId($leverancierId);
 
         if (empty($leverancier)) {
             abort(404, 'Leverancier niet gevonden.');
@@ -108,23 +108,18 @@ class LeverancierController extends Controller
         ]);
 
 
-        try {
-            // Gebruik direct de reeds geïnjecteerde instantie via $this
-            $this->leverancierModel->sp_NieuweLevering(
-                (int) $request->productId,
-                (int) $request->leverancierId,
-                (int) $request->aantal,
-                $request->datumEerstVolgendeLevering
-            );
+        
+        // Gebruik direct de reeds geïnjecteerde instantie via $this
+        $this->leverancierModel->sp_NieuweLevering(
+            (int) $request->productId,
+            (int) $request->leverancierId,
+            (int) $request->aantal,
+            $request->datumEerstVolgendeLevering
+        );
 
-            return redirect()->route('leverancier.geleverdeproducten')
-                ->with('success', 'De levering is succesvol verwerkt.');
-        } catch (\Throwable $e) {
-            return redirect()
-                ->back()
-                ->withInput()
-                ->with('error', 'Er is iets misgegaan bij het verwerken van de levering.');
-        }
+        return redirect()->route('leverancier.geleverdeproducten', ['id' => $request->leverancierId])
+            ->with('success', 'De levering is succesvol verwerkt.');
+       
     }
 
 

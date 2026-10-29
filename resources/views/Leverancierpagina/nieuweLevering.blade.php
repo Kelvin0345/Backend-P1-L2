@@ -47,7 +47,7 @@
 
                     <p>
                         <strong>Contactpersoon:</strong>
-                        {{ $leverancier[0]->Contactpersoon ?? '' }}
+                        {{ $leverancier[0]->ContactPersoon ?? '' }}
                     </p>
 
                     <p>
