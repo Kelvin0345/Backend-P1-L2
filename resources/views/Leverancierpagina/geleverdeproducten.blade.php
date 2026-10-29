@@ -98,7 +98,7 @@
                                 d="M3 10h18M3 10l9-7 9 7M5 10v10h14V10" />
                         </svg>
 
-                        Terug naar magazijn
+                        Terug naar Leverancier pagina
                     </a>
                 </div>
 

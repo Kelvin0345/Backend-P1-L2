@@ -75,8 +75,8 @@ class LeverancierController extends Controller
                 $request->datumEerstVolgendeLevering
             );
 
-            return redirect()
-                ->back()
+            return redirect()->route('leverancier.geleverdeproducten')
+
                 ->with('success', 'De levering is succesvol verwerkt.');
         } catch (\Throwable $e) {
             return redirect()

@@ -1,5 +1,5 @@
 <x-app-layout>
-   
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Overzicht Leveranciers') }}
@@ -87,10 +87,11 @@
 
 
                                     {{-- Toon producten --}}
-                                    <td class="px-4 py-3">
+                                    <td class="px-4 py-3 text-center">
                                         <a href="{{ route('leverancier.geleverdeproducten', $leverancier->LeverancierId) }}"
-                                            class="btn btn-outline-danger btn-sm">
-                                            X
+                                            class="inline-flex items-center justify-center text-3xl hover:scale-125 transition-transform duration-200 p-2"
+                                            title="Toon producten">
+                                            📦
                                         </a>
                                     </td>
                                 </tr>

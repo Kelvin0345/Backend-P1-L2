@@ -29,6 +29,7 @@ Route::get('/Leverancierpagina', [LeverancierController::class, 'LeverancierPagi
 
 Route::get('/leverancier/{id}/geleverde-producten',  [LeverancierController::class, 'getGeleverdeProductenByLeverancierId'])->name('leverancier.geleverdeproducten');
 
+
 // Formulier voor een nieuwe levering tonen
 Route::get(
     '/leverancier/nieuwe-levering',
