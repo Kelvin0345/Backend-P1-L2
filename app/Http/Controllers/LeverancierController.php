@@ -57,7 +57,15 @@ class LeverancierController extends Controller
     }
 
     public function nieuweLevering(Request $request)
-    {
+    {   
+        // $geleverdeProducten = $this->leverancierModel->sp_GetGeleverdeProductenByLeverancierId($id);
+        // // var_dump($geleverdeProducten);exit();
+        // return view('leverancier.nieuweLeveringFormulier', [
+        //     'title' => 'Geleverde Producten',
+        //     'geleverdeProducten' => $geleverdeProducten
+        // ]);        
+
+
         $request->validate([
             'productId' => 'required|integer|min:1',
             'leverancierId' => 'required|integer|min:1',
@@ -65,10 +73,10 @@ class LeverancierController extends Controller
             'datumEerstVolgendeLevering' => 'required|date',
         ]);
 
-        $leverancierModel = new LeverancierModel();
 
         try {
-            $leverancierModel->sp_NieuweLevering(
+            // Gebruik direct de reeds geïnjecteerde instantie via $this
+            $this->leverancierModel->sp_NieuweLevering(
                 (int) $request->productId,
                 (int) $request->leverancierId,
                 (int) $request->aantal,
@@ -76,7 +84,6 @@ class LeverancierController extends Controller
             );
 
             return redirect()->route('leverancier.geleverdeproducten')
-
                 ->with('success', 'De levering is succesvol verwerkt.');
         } catch (\Throwable $e) {
             return redirect()
