@@ -20,10 +20,29 @@ class LeverancierModel extends Model
         return DB::select('CALL SP_GetAllLeverancier');
     }
 
-     public function sp_GetGeleverdeProductenByLeverancierId(int $id)
+    public function sp_GetGeleverdeProductenByLeverancierId(int $id)
     {
         return DB::select('CALL SP_GetGeleverdeProductenByLeverancierId(:id)', [
             'id' => $id
         ]);
     }
+
+    public function sp_NieuweLevering(
+        int $productId,
+        int $leverancierId,
+        int $aantal,
+        ?string $datumEerstVolgendeLevering
+    ) {
+        return DB::statement(
+            'CALL SP_nieuweLevering()',
+            [
+                $productId,
+                $leverancierId,
+                $aantal,
+                $datumEerstVolgendeLevering
+            ]
+        );
+    }
+
+
 }

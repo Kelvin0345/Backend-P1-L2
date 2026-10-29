@@ -34,7 +34,7 @@ class LeverancierController extends Controller
     public function LeverancierPagina()
     {
         $leverancierPagina = $this->leverancierModel->sp_GetAllLeverancier();
-              #  var_dump($leverancierPagina);exit();
+        #  var_dump($leverancierPagina);exit();
         return view('Leverancierpagina.index', [
             'title' => 'Overzicht Leveranciers',
             'leverancierPagina' => $leverancierPagina
@@ -44,13 +44,47 @@ class LeverancierController extends Controller
     public function getGeleverdeProductenByLeverancierId($id)
     {
         $geleverdeProducten = $this->leverancierModel->sp_GetGeleverdeProductenByLeverancierId($id);
+        // var_dump($geleverdeProducten);exit();
         return view('Leverancierpagina.geleverdeproducten', [
             'title' => 'Geleverde Producten',
             'geleverdeProducten' => $geleverdeProducten
         ]);
     }
 
+    public function nieuweLeveringFormulier()
+    {
+        return view('Leverancierpagina.nieuweLevering');
+    }
 
+    public function nieuweLevering(Request $request)
+    {
+        $request->validate([
+            'productId' => 'required|integer|min:1',
+            'leverancierId' => 'required|integer|min:1',
+            'aantal' => 'required|integer|min:1',
+            'datumEerstVolgendeLevering' => 'required|date',
+        ]);
+
+        $leverancierModel = new LeverancierModel();
+
+        try {
+            $leverancierModel->sp_NieuweLevering(
+                (int) $request->productId,
+                (int) $request->leverancierId,
+                (int) $request->aantal,
+                $request->datumEerstVolgendeLevering
+            );
+
+            return redirect()
+                ->back()
+                ->with('success', 'De levering is succesvol verwerkt.');
+        } catch (\Throwable $e) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'Er is iets misgegaan bij het verwerken van de levering.');
+        }
+    }
 
 
 

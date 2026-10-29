@@ -17,7 +17,13 @@ BEGIN
     INNER JOIN ProductPerLeverancier AS PPLE ON LEVE.Id = PPLE.LeverancierId
     INNER JOIN Product AS PROD ON PROD.Id = PPLE.ProductId
     GROUP BY NaamLeverancier
-    ORDER BY AantalVerschillendeProducten DESC;
+    ORDER BY 
+    AantalVerschillendeProducten DESC,
+	LeverancierId ASC;
+				
+
+    
+    
 
 END$$
 

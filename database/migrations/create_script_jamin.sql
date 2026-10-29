@@ -51,7 +51,7 @@ VALUES
     ,(7, 'Witte Muizen', '8719587328256', 1, NULL, SYSDATE(6), SYSDATE(6))
     ,(8, 'Reuzen Slangen', '8719587325641', 1, NULL, SYSDATE(6), SYSDATE(6))
     ,(9, 'Zoute Rijen', '8719587322739', 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,(10, 'Winegums', '8719587327527', 1, NULL, SYSDATE(6), SYSDATE(6))
+    ,(10, 'Winegums', '8719587327527', 0, NULL, SYSDATE(6), SYSDATE(6))
     ,(11, 'Drop Munten', '8719587322345', 1, NULL, SYSDATE(6), SYSDATE(6))
     ,(12, 'Kruis Drop', '8719587322265', 1, NULL, SYSDATE(6), SYSDATE(6))
     ,(13, 'Zoute Ruitjes', '8719587323256', 1, NULL, SYSDATE(6), SYSDATE(6));
@@ -282,7 +282,8 @@ VALUES
     ,(2, 'Astra Sweets', 'Jasper del Monte', 'L1029284315', '06-39398734', 1, NULL, SYSDATE(6), SYSDATE(6))
     ,(3, 'Haribo', 'Sven Stalman', 'L1029324748', '06-24383291', 1, NULL, SYSDATE(6), SYSDATE(6))
     ,(4, 'Basset', 'Joyce Stelterberg', 'L1023845773', '06-48293823', 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,(5, 'De Bron', 'Remco Veenstra', 'L1023857736', '06-34291234', 1, NULL, SYSDATE(6), SYSDATE(6));
+    ,(5, 'De Bron', 'Remco Veenstra', 'L1023857736', '06-34291234', 1, NULL, SYSDATE(6), SYSDATE(6))
+    ,(6, 'Quality Street', 'Johan Nooij','L1029234586', '06-23458456',1, NULL, SYSDATE(6), SYSDATE(6));
 
 
 -- Step: 12

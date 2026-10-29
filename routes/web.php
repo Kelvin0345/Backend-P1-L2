@@ -29,6 +29,18 @@ Route::get('/Leverancierpagina', [LeverancierController::class, 'LeverancierPagi
 
 Route::get('/leverancier/{id}/geleverde-producten',  [LeverancierController::class, 'getGeleverdeProductenByLeverancierId'])->name('leverancier.geleverdeproducten');
 
+// Formulier voor een nieuwe levering tonen
+Route::get(
+    '/leverancier/nieuwe-levering',
+    [LeverancierController::class, 'nieuweLeveringFormulier']
+)->name('leverancier.nieuweLeveringFormulier');
+
+// Nieuwe levering verwerken
+Route::post(
+    '/leverancier/nieuwe-levering',
+    [LeverancierController::class, 'nieuweLevering']
+)->name('leverancier.nieuweLevering');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

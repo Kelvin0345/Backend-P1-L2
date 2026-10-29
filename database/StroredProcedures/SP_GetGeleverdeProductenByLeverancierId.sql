@@ -14,6 +14,7 @@ BEGIN
        ,LEVE.Mobiel AS Mobiel
        ,LEVE.Id AS LeverancierId
        ,PROD.Naam AS NaamProduct
+       ,PROD.Id AS ProductId
        ,MAGA.AantalAanwezig AS AantalAanwezig
        ,MAGA.VerpakkingsEenheidInKilogram as VerpakkingsEenheid
        ,MAX(PPLE.DatumLevering) as DatumLaatsteLevering

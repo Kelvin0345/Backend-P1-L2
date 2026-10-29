@@ -61,14 +61,18 @@
 
                                         <td class="py-2">
                                             {{ $product->VerpakkingsEenheid   }}
-                                            KG
+
                                         </td>
 
                                         <td class="py-2">
                                             {{ $product->DatumLaatsteLevering }}
                                         </td>
-                                        <td class="py-2">
-                                            <button>+</button>
+                                        <td class="py-2 text-center">
+                                            <a href="{{ route('leverancier.nieuweLeveringFormulier', ['productId' => $product->ProductId, 'leverancierId' => $product->LeverancierId]) }}"
+                                                class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition duration-200 shadow-sm"
+                                                title="Nieuwe levering toevoegen">
+                                                +
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach
