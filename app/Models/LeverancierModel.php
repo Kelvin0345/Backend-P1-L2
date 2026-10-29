@@ -43,4 +43,15 @@ class LeverancierModel extends Model
             ]
         );
     }
+
+    public function getProductById($productId)
+    {
+        // Pas dit aan naar hoe jij queries uitvoert in je model (bijv. DB::select of Eloquent)
+        return DB::table('product')->where('Id', $productId)->first();
+    }
+
+    public function getLeverancierById($leverancierId)
+    {
+        return DB::table('leverancier')->where('Id', $leverancierId)->first();
+    }
 }

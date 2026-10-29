@@ -92,14 +92,6 @@ class LeverancierController extends Controller
 
     public function nieuweLevering(Request $request)
     {
-        // $geleverdeProducten = $this->leverancierModel->sp_GetGeleverdeProductenByLeverancierId($id);
-        // // var_dump($geleverdeProducten);exit();
-        // return view('leverancier.nieuweLeveringFormulier', [
-        //     'title' => 'Geleverde Producten',
-        //     'geleverdeProducten' => $geleverdeProducten
-        // ]);        
-
-
         $request->validate([
             'productId' => 'required|integer|min:1',
             'leverancierId' => 'required|integer|min:1',
@@ -107,9 +99,21 @@ class LeverancierController extends Controller
             'datumEerstVolgendeLevering' => 'required|date',
         ]);
 
+        // Haal product- en leveranciergegevens op
+        $product = $this->leverancierModel->getProductById($request->productId);
+        $leverancier = $this->leverancierModel->getLeverancierById($request->leverancierId);
 
-        
-        // Gebruik direct de reeds geïnjecteerde instantie via $this
+        // Controleer of het product niet meer actief is (IsActief == false / 0)
+        if ($product && !$product->IsActief) {
+            $errorMessage = "Het product {$product->Naam} van de leverancier {$leverancier->Naam} wordt niet meer geproduceerd.";
+
+            // Stuur de gebruiker terug naar het formulier met de foutmelding en leverancierId voor de timeout
+            return back()
+                ->with('error', $errorMessage)
+                ->with('leverancierId', $request->leverancierId);
+        }
+
+        // Als het product wel actief is, sla de levering op
         $this->leverancierModel->sp_NieuweLevering(
             (int) $request->productId,
             (int) $request->leverancierId,
@@ -119,10 +123,7 @@ class LeverancierController extends Controller
 
         return redirect()->route('leverancier.geleverdeproducten', ['id' => $request->leverancierId])
             ->with('success', 'De levering is succesvol verwerkt.');
-       
     }
-
-
 
 
     /**
