@@ -79,7 +79,7 @@
                     {{-- Datum eerstvolgende levering --}}
                     <div>
                         <label for="datumEerstVolgendeLevering" class="block text-sm font-medium text-gray-700">Datum
-                            eerstvolgende levering (dd-mm-jjjj)</label>
+                            eerstvolgende levering</label>
                         <input type="date" name="datumEerstVolgendeLevering" id="datumEerstVolgendeLevering"
                             value="{{ old('datumEerstVolgendeLevering', now()->format('Y-m-d')) }}" required
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm @error('datumEerstVolgendeLevering') border-red-500 @enderror">

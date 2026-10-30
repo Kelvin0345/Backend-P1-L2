@@ -67,7 +67,7 @@
                                         </td>
 
                                         <td class="py-2">
-                                            {{ $product->VerpakkingsEenheid }}
+                                            {{ $product->VerpakkingsEenheid }} KG
                                         </td>
 
                                         <td class="py-2">
