@@ -14,16 +14,13 @@ BEGIN
         ,LEVE.Id AS LeverancierId
         ,COUNT(DISTINCT PROD.Naam) AS AantalVerschillendeProducten
     FROM Leverancier AS LEVE
-    INNER JOIN ProductPerLeverancier AS PPLE ON LEVE.Id = PPLE.LeverancierId
-    INNER JOIN Product AS PROD ON PROD.Id = PPLE.ProductId
+    LEFT JOIN ProductPerLeverancier AS PPLE ON LEVE.Id = PPLE.LeverancierId
+    LEFT JOIN Product AS PROD ON PROD.Id = PPLE.ProductId
     GROUP BY NaamLeverancier
     ORDER BY 
     AantalVerschillendeProducten DESC,
 	LeverancierId ASC;
-				
 
-    
-    
 
 END$$
 
