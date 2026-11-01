@@ -7,7 +7,13 @@
 -- **********************************************************************************/
 
 -- Drop table Product
+DROP TABLE IF EXISTS ProductPerLeverancier;
+DROP TABLE IF EXISTS ProductPerAllergeen;
+DROP TABLE IF EXISTS Magazijn;
+DROP TABLE IF EXISTS Leverancier;
+DROP TABLE IF EXISTS Allergeen;
 DROP TABLE IF EXISTS Product;
+
 
 CREATE TABLE IF NOT EXISTS Product
 (
@@ -66,7 +72,6 @@ VALUES
 -- **********************************************************************************/
 
 -- Drop table Magazijn
-DROP TABLE IF EXISTS Magazijn;
 
 CREATE TABLE IF NOT EXISTS Magazijn
 (
@@ -128,7 +133,6 @@ VALUES
 -- **********************************************************************************/
 
 -- Drop table Allergeen
-DROP TABLE IF EXISTS Allergeen;
 
 CREATE TABLE IF NOT EXISTS Allergeen
 (
@@ -179,7 +183,6 @@ VALUES
 -- **********************************************************************************/
 
 -- Drop table ProductPerAllergeen
-DROP TABLE IF EXISTS ProductPerAllergeen;
 
 CREATE TABLE IF NOT EXISTS ProductPerAllergeen
 (
@@ -239,7 +242,6 @@ VALUES
 -- **********************************************************************************/
 
 -- Drop table Leverancier
-DROP TABLE IF EXISTS Leverancier;
 
 CREATE TABLE IF NOT EXISTS Leverancier
 (
@@ -295,7 +297,6 @@ VALUES
 -- **********************************************************************************/
 
 -- Drop table ProductPerLeverancier
-DROP TABLE IF EXISTS ProductPerLeverancier;
 
 CREATE TABLE IF NOT EXISTS ProductPerLeverancier
 (
