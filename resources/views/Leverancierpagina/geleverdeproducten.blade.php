@@ -14,6 +14,28 @@
                     $heeftProducten = count($geleverdeProducten) > 0 && !empty($geleverdeProducten[0]->NaamProduct);
                 @endphp
 
+                @if (session('success'))
+                    <div id="success-alert"
+                        class="mb-6 rounded-lg bg-green-100 p-4 text-sm text-green-700 border border-green-400 transition-opacity duration-500"
+                        role="alert">
+                        {{ session('success') }}
+                    </div>
+
+                    <script>
+                        setTimeout(function () {
+                            const alert = document.getElementById('success-alert');
+                            if (alert) {
+                                
+                                alert.style.opacity = '0';
+                                
+                                setTimeout(function () {
+                                    alert.remove();
+                                }, 500);
+                            }
+                        }, 2000); 
+                    </script>
+                @endif
+
                 {{-- Gegevens van de leverancier --}}
                 @if(count($geleverdeProducten) > 0)
                     <div class="p-6 border-b border-gray-200">
@@ -43,40 +65,50 @@
 
                 {{-- Producten tabel --}}
                 <div class="overflow-x-auto p-6">
-                    <table class="table w-full">
+                    <table class="w-full border-collapse border-2 border-black">
                         <thead>
-                            <tr class="border-b text-left">
-                                <th class="py-2">Naam product</th>
-                                <th class="py-2">Aantal in Magazijn</th>
-                                <th class="py-2">Verpakkingseenheid</th>
-                                <th class="py-2">Laatste levering</th>
-                                <th class="py-2">Nieuwe levering</th>
+                            <tr class="bg-gray-100 border-b-2 border-black text-center">
+                                <th class="px-4 py-3 font-semibold text-gray-900 border-r-2 border-black">
+                                    Naam product
+                                </th>
+                                <th class="px-4 py-3 font-semibold text-gray-900 border-r-2 border-black">
+                                    Aantal in Magazijn
+                                </th>
+                                <th class="px-4 py-3 font-semibold text-gray-900 border-r-2 border-black">
+                                    Verpakkingseenheid
+                                </th>
+                                <th class="px-4 py-3 font-semibold text-gray-900 border-r-2 border-black">
+                                    Laatste levering
+                                </th>
+                                <th class="px-4 py-3 font-semibold text-gray-900">
+                                    Nieuwe levering
+                                </th>
                             </tr>
                         </thead>
 
                         <tbody>
                             @if ($heeftProducten)
                                 @foreach ($geleverdeProducten as $product)
-                                    <tr class="border-b">
-                                        <td class="py-2">
+                                    <tr class="border-b-2 border-black hover:bg-gray-50 text-center">
+                                        <td class="px-4 py-3 border-r-2 border-black">
                                             {{ $product->NaamProduct }}
                                         </td>
 
-                                        <td class="py-2">
+                                        <td class="px-4 py-3 border-r-2 border-black">
                                             {{ $product->AantalAanwezig }}
                                         </td>
 
-                                        <td class="py-2">
+                                        <td class="px-4 py-3 border-r-2 border-black">
                                             {{ $product->VerpakkingsEenheid }} KG
                                         </td>
 
-                                        <td class="py-2">
+                                        <td class="px-4 py-3 border-r-2 border-black">
                                             {{ $product->DatumLaatsteLevering }}
                                         </td>
-                                        
-                                        <td class="py-2 text-center">
+
+                                        <td class="px-4 py-3">
                                             <a href="{{ route('leverancier.nieuweLeveringFormulier', ['productId' => $product->ProductId, 'leverancierId' => $product->LeverancierId]) }}"
-                                                class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition duration-200 shadow-sm"
+                                                class="inline-flex items-center justify-center text-3xl font-bold text-black hover:scale-125 transition-transform duration-200 p-2"
                                                 title="Nieuwe levering toevoegen">
                                                 +
                                             </a>
@@ -84,10 +116,10 @@
                                     </tr>
                                 @endforeach
                             @else
-                                {{-- Melding IN de tabel (colspan="5" zodat het over alle 5 kolommen heentrekt) --}}
                                 <tr>
-                                    <td colspan="5" class="py-8 text-center text-gray-700">
-                                        <p class="text-base font-medium">Dit bedrijf heeft tot nu toe geen producten geleverd aan Jamin</p>
+                                    <td colspan="5" class="px-4 py-6 text-center text-gray-700 border-b-2 border-black">
+                                        <p class="text-base font-medium">Dit bedrijf heeft tot nu toe geen producten
+                                            geleverd aan Jamin</p>
                                     </td>
                                 </tr>
                             @endif
@@ -95,10 +127,9 @@
                     </table>
                 </div>
 
-               
                 @if (!$heeftProducten)
                     <script>
-                        setTimeout(function() {
+                        setTimeout(function () {
                             window.location.href = "{{ route('Leverancierpagina.index') }}";
                         }, 3000);
                     </script>

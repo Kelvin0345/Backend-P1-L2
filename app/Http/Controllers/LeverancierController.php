@@ -66,17 +66,15 @@ class LeverancierController extends Controller
             abort(400, 'Leverancier ID of Product ID ontbreekt in de URL.');
         }
 
-        // 1. Haal de leverancier op (zodat $leverancier[0] werkt in je view)
+        // 1. Haal de leverancier op via het model
         $leverancier = $this->leverancierModel->sp_GetGeleverdeProductenByLeverancierId($leverancierId);
 
         if (empty($leverancier)) {
             abort(404, 'Leverancier niet gevonden.');
         }
 
-        // 2. Haal het product op (pas 'product' aan naar jouw tabelnaam indien nodig, bijv. 'products')
-        $product = \Illuminate\Support\Facades\DB::table('product')
-            ->where('Id', $productId)
-            ->first();
+        // 2. Haal het product op via het model (aangepast!)
+        $product = $this->leverancierModel->getProductById($productId);
 
         if (!$product) {
             abort(404, 'Product niet gevonden.');
@@ -107,13 +105,13 @@ class LeverancierController extends Controller
         if ($product && !$product->IsActief) {
             $errorMessage = "Het product {$product->Naam} van de leverancier {$leverancier->Naam} wordt niet meer geproduceerd.";
 
-            // Stuur de gebruiker terug naar het formulier met de foutmelding en leverancierId voor de timeout
+            // Stuur de gebruiker terug naar het formulier met de foutmelding
             return back()
                 ->with('error', $errorMessage)
                 ->with('leverancierId', $request->leverancierId);
         }
 
-        // Als het product wel actief is, sla de levering op
+        // Als het product wel actief is, roep je de stored procedure aan via je model
         $this->leverancierModel->sp_NieuweLevering(
             (int) $request->productId,
             (int) $request->leverancierId,

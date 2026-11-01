@@ -45,12 +45,12 @@
                             </tr>
                         </thead>
 
-                        {{-- Tabel inhoud --}}
+                        {{-- Tabel inhoud (alle gegevens gecentreerd) --}}
                         <tbody>
                             @forelse ($leverancierPagina as $leverancier)
 
-                                <tr class="border-b-2 border-black hover:bg-gray-50">
-                                    
+                                <tr class="border-b-2 border-black hover:bg-gray-50 text-center">
+
                                     {{-- Naam --}}
                                     <td class="px-4 py-3 border-r-2 border-black">
                                         {{ $leverancier->NaamLeverancier }}
@@ -72,12 +72,12 @@
                                     </td>
 
                                     {{-- Aantal producten --}}
-                                    <td class="px-4 py-3 text-center border-r-2 border-black">
+                                    <td class="px-4 py-3 border-r-2 border-black">
                                         {{ $leverancier->AantalVerschillendeProducten }}
                                     </td>
 
                                     {{-- Toon producten --}}
-                                    <td class="px-4 py-3 text-center">
+                                    <td class="px-4 py-3">
                                         <a href="{{ route('leverancier.geleverdeproducten', $leverancier->LeverancierId) }}"
                                             class="inline-flex items-center justify-center text-3xl hover:scale-125 transition-transform duration-200 p-2"
                                             title="Toon producten">
@@ -98,7 +98,15 @@
 
                 </div>
 
+                <div class="p-6 pt-0 flex justify-end">
+                    <a href="{{ route('dashboard') }}"
+                        class="inline-flex items-center rounded-lg bg-gray-200 px-5 py-2.5 text-sm font-semibold text-gray-700 shadow-sm hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2">
+                        Home
+                    </a>
+                </div>
+
             </div>
+
         </div>
     </div>
 
