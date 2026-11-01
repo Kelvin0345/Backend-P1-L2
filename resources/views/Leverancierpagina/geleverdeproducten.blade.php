@@ -25,9 +25,9 @@
                         setTimeout(function () {
                             const alert = document.getElementById('success-alert');
                             if (alert) {
-                                
+
                                 alert.style.opacity = '0';
-                                
+
                                 setTimeout(function () {
                                     alert.remove();
                                 }, 500);
@@ -136,21 +136,29 @@
                 @endif
 
                 {{-- Terugknop --}}
-                <div class="p-6 pt-0 flex justify-start">
-                    <a href="{{ route('Leverancierpagina.index') }}" class="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-5 py-3
-                            text-sm font-semibold text-white shadow-sm
-                            transition duration-200 hover:bg-indigo-700 hover:shadow-md
-                            focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
 
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M3 10h18M3 10l9-7 9 7M5 10v10h14V10" />
-                        </svg>
 
-                        Terug naar Leverancier pagina
+                <div class="p-6 pt-0 flex justify-end items-center gap-3">
+
+                    <a href="{{ route('Leverancierpagina.index') }}" class="inline-flex w-64 items-center justify-center rounded-lg bg-gray-200 px-5 py-3
+                        text-sm font-semibold text-gray-700 shadow-sm
+                        transition duration-200 hover:bg-gray-300
+                        focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2">
+
+
+
+                        Terug
                     </a>
+
+                    <a href="{{ route('dashboard') }}" class="inline-flex w-64 items-center justify-center rounded-lg bg-gray-200 px-5 py-3
+                        text-sm font-semibold text-gray-700 shadow-sm
+                        transition duration-200 hover:bg-gray-300
+                        focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2">
+                        Home
+                    </a>
+
                 </div>
+
 
             </div>
         </div>
