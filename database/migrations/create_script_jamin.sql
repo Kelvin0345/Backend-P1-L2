@@ -1,12 +1,8 @@
--- Step: 02
--- Goal: Create a new table Product
--- **********************************************************************************
--- Version      Date:                Author:                     Description:
--- *******      **********           ****************            ******************
--- 01           10-09-2026           Kelvin                      New
--- **********************************************************************************/
+USE `laravel`;
 
--- Drop table Product
+-- **********************************************************************************
+-- Versiebeheer & Opschonen (Drop tabellen in omgekeerde volgorde vanwege Foreign Keys)
+-- **********************************************************************************
 DROP TABLE IF EXISTS ProductPerLeverancier;
 DROP TABLE IF EXISTS ProductPerAllergeen;
 DROP TABLE IF EXISTS Magazijn;
@@ -15,6 +11,11 @@ DROP TABLE IF EXISTS Allergeen;
 DROP TABLE IF EXISTS Product;
 
 
+-- **********************************************************************************
+-- 1. Hoofdtabellen aanmaken & vullen
+-- **********************************************************************************
+
+-- Stap 02: Tabel Product aanmaken
 CREATE TABLE IF NOT EXISTS Product
 (
      Id                     TINYINT      UNSIGNED    NOT NULL    AUTO_INCREMENT
@@ -28,15 +29,7 @@ CREATE TABLE IF NOT EXISTS Product
     ,CONSTRAINT PK_Product_Id PRIMARY KEY CLUSTERED(Id)
 ) ENGINE=InnoDB;
 
-
--- Step: 03
--- Goal: Fill table Product with data
--- **********************************************************************************
--- Version      Date:                Author:                     Description:
--- *******      **********           ****************            ******************
--- 01           10-09-2026           Kelvin                      New
--- **********************************************************************************/
-
+-- Stap 03: Data toevoegen aan Product
 INSERT INTO Product
 (
      Id
@@ -63,16 +56,88 @@ VALUES
     ,(13, 'Zoute Ruitjes', '8719587323256', 1, NULL, SYSDATE(6), SYSDATE(6));
 
 
--- Step: 04
--- Goal: Create a new table Magazijn
+-- Stap 06: Tabel Allergeen aanmaken
+CREATE TABLE IF NOT EXISTS Allergeen
+(
+     Id                  TINYINT      UNSIGNED    NOT NULL    AUTO_INCREMENT
+    ,Naam                VARCHAR(50)              NOT NULL
+    ,Omschrijving        VARCHAR(250)             NOT NULL
+    ,IsActief            BIT                      NOT NULL    DEFAULT 1
+    ,Opmerkingen         VARCHAR(250)                 NULL    DEFAULT NULL
+    ,DatumAangemaakt     DateTime(6)              NOT NULL
+    ,DatumGewijzigd      DateTime(6)              NOT NULL
+
+    ,CONSTRAINT PK_Allergeen_Id PRIMARY KEY CLUSTERED(Id)
+) ENGINE=InnoDB;
+
+-- Stap 07: Data toevoegen aan Allergeen
+INSERT INTO Allergeen
+(
+     Id
+    ,Naam
+    ,Omschrijving
+    ,IsActief
+    ,Opmerkingen
+    ,DatumAangemaakt
+    ,DatumGewijzigd
+)
+VALUES
+     (1, 'Gluten', 'Dit product bevat gluten', 1, NULL, SYSDATE(6), SYSDATE(6))
+    ,(2, 'Gelatine', 'Dit product bevat gelatine', 1, NULL, SYSDATE(6), SYSDATE(6))
+    ,(3, 'AZO-Kleurstof', 'Dit product bevat AZO-kleurstoffen', 1, NULL, SYSDATE(6), SYSDATE(6))
+    ,(4, 'Lactose', 'Dit product bevat lactose', 1, NULL, SYSDATE(6), SYSDATE(6))
+    ,(5, 'Soja', 'Dit product bevat soja', 1, NULL, SYSDATE(6), SYSDATE(6));
+
+
+-- Stap 10: Tabel Leverancier aanmaken
+CREATE TABLE IF NOT EXISTS Leverancier
+(
+     Id                  TINYINT      UNSIGNED    NOT NULL    AUTO_INCREMENT
+    ,Naam                VARCHAR(50)              NOT NULL
+    ,ContactPersoon      VARCHAR(50)              NOT NULL
+    ,LeverancierNummer   VARCHAR(20)              NOT NULL
+    ,Mobiel              VARCHAR(20)              NOT NULL
+    ,ContactId           INT                      NOT NULL
+    ,IsActief            BIT                      NOT NULL    DEFAULT 1
+    ,Opmerkingen         VARCHAR(250)                 NULL    DEFAULT NULL
+    ,DatumAangemaakt     DateTime(6)              NOT NULL
+    ,DatumGewijzigd      DateTime(6)              NOT NULL
+
+    ,CONSTRAINT PK_Leverancier_Id PRIMARY KEY CLUSTERED(Id)
+
+        ,CONSTRAINT FK_Leverancier_Contact
+        FOREIGN KEY (ContactId)
+        REFERENCES Contact(Id)
+
+) ENGINE=InnoDB;
+
+-- Stap 11: Data toevoegen aan Leverancier
+INSERT INTO Leverancier
+(
+     Id
+    ,Naam
+    ,ContactPersoon
+    ,LeverancierNummer
+    ,Mobiel
+    ,ContactId
+    ,IsActief
+    ,Opmerkingen
+    ,DatumAangemaakt
+    ,DatumGewijzigd
+)
+VALUES
+     (1, 'Venco', 'Bert van Linge', 'L1029384719', '06-28493827', 1, 1, NULL, SYSDATE(6), SYSDATE(6))
+    ,(2, 'Astra Sweets', 'Jasper del Monte', 'L1029284315', '06-39398734', 2, 1, NULL, SYSDATE(6), SYSDATE(6))
+    ,(3, 'Haribo', 'Sven Stalman', 'L1029324748', '06-24383291', 3, 1, NULL, SYSDATE(6), SYSDATE(6))
+    ,(4, 'Basset', 'Joyce Stelterberg', 'L1023845773', '06-48293823', 4, 1, NULL, SYSDATE(6), SYSDATE(6))
+    ,(5, 'De Bron', 'Remco Veenstra', 'L1023857736', '06-34291234', 5, 1, NULL, SYSDATE(6), SYSDATE(6))
+    ,(6, 'Quality Street', 'Johan Nooij', 'L1029234586', '06-23458456', 6, 1, NULL, SYSDATE(6), SYSDATE(6));
+
 -- **********************************************************************************
--- Version      Date:                Author:                     Description:
--- *******      **********           ****************            ******************
--- 01           10-09-2026           Kelvin                      New
--- **********************************************************************************/
+-- 2. Tabellen met afhankelijkheden (Foreign Keys) aanmaken & vullen
+-- **********************************************************************************
 
--- Drop table Magazijn
-
+-- Stap 04: Tabel Magazijn aanmaken
 CREATE TABLE IF NOT EXISTS Magazijn
 (
      Id                             TINYINT      UNSIGNED    NOT NULL    AUTO_INCREMENT
@@ -88,15 +153,7 @@ CREATE TABLE IF NOT EXISTS Magazijn
     ,CONSTRAINT FK_Magazijn_ProductId FOREIGN KEY (ProductId) REFERENCES Product(Id)
 ) ENGINE=InnoDB;
 
-
--- Step: 05
--- Goal: Fill table Magazijn with data
--- **********************************************************************************
--- Version      Date:                Author:                     Description:
--- *******      **********           ****************            ******************
--- 01           10-09-2026           Kelvin                      New
--- **********************************************************************************/
-
+-- Stap 05: Data toevoegen aan Magazijn
 INSERT INTO Magazijn
 (
      Id
@@ -124,90 +181,23 @@ VALUES
     ,(13, 13, 5.0, 20, 1, NULL, SYSDATE(6), SYSDATE(6));
 
 
--- Step: 06
--- Goal: Create a new table Allergeen
--- **********************************************************************************
--- Version      Date:                Author:                     Description:
--- *******      **********           ****************            ******************
--- 01           10-09-2026           Kelvin                      New
--- **********************************************************************************/
-
--- Drop table Allergeen
-
-CREATE TABLE IF NOT EXISTS Allergeen
-(
-     Id                 TINYINT      UNSIGNED    NOT NULL    AUTO_INCREMENT
-    ,Naam               VARCHAR(50)              NOT NULL
-    ,Omschrijving       VARCHAR(250)             NOT NULL
-    ,IsActief           BIT                      NOT NULL    DEFAULT 1
-    ,Opmerkingen        VARCHAR(250)                 NULL    DEFAULT NULL
-    ,DatumAangemaakt    DateTime(6)              NOT NULL
-    ,DatumGewijzigd     DateTime(6)              NOT NULL
-
-    ,CONSTRAINT PK_Allergeen_Id PRIMARY KEY CLUSTERED(Id)
-) ENGINE=InnoDB;
-
-
--- Step: 07
--- Goal: Fill table Allergeen with data
--- **********************************************************************************
--- Version      Date:                Author:                     Description:
--- *******      **********           ****************            ******************
--- 01           10-09-2026           Kelvin                      New
--- **********************************************************************************/
-
-INSERT INTO Allergeen
-(
-     Id
-    ,Naam
-    ,Omschrijving
-    ,IsActief
-    ,Opmerkingen
-    ,DatumAangemaakt
-    ,DatumGewijzigd
-)
-VALUES
-     (1, 'Gluten', 'Dit product bevat gluten', 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,(2, 'Gelatine', 'Dit product bevat gelatine', 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,(3, 'AZO-Kleurstof', 'Dit product bevat AZO-kleurstoffen', 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,(4, 'Lactose', 'Dit product bevat lactose', 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,(5, 'Soja', 'Dit product bevat soja', 1, NULL, SYSDATE(6), SYSDATE(6));
-
-
--- Step: 08
--- Goal: Create a new table ProductPerAllergeen
--- **********************************************************************************
--- Version      Date:                Author:                     Description:
--- *******      **********           ****************            ******************
--- 01           10-09-2026           Kelvin                      New
--- **********************************************************************************/
-
--- Drop table ProductPerAllergeen
-
+-- Stap 08: Tabel ProductPerAllergeen aanmaken
 CREATE TABLE IF NOT EXISTS ProductPerAllergeen
 (
-     Id                 TINYINT      UNSIGNED    NOT NULL    AUTO_INCREMENT
-    ,ProductId          TINYINT      UNSIGNED    NOT NULL
-    ,AllergeenId        TINYINT      UNSIGNED    NOT NULL
-    ,IsActief           BIT                      NOT NULL    DEFAULT 1
-    ,Opmerkingen        VARCHAR(250)                 NULL    DEFAULT NULL
-    ,DatumAangemaakt    DateTime(6)              NOT NULL
-    ,DatumGewijzigd     DateTime(6)              NOT NULL
+     Id                  TINYINT      UNSIGNED    NOT NULL    AUTO_INCREMENT
+    ,ProductId           TINYINT      UNSIGNED    NOT NULL
+    ,AllergeenId         TINYINT      UNSIGNED    NOT NULL
+    ,IsActief            BIT                      NOT NULL    DEFAULT 1
+    ,Opmerkingen         VARCHAR(250)                 NULL    DEFAULT NULL
+    ,DatumAangemaakt     DateTime(6)              NOT NULL
+    ,DatumGewijzigd      DateTime(6)              NOT NULL
 
     ,CONSTRAINT PK_ProductPerAllergeen_Id PRIMARY KEY CLUSTERED(Id)
     ,CONSTRAINT FK_ProductPerAllergeen_ProductId FOREIGN KEY (ProductId) REFERENCES Product(Id)
     ,CONSTRAINT FK_ProductPerAllergeen_AllergeenId FOREIGN KEY (AllergeenId) REFERENCES Allergeen(Id)
 ) ENGINE=InnoDB;
 
-
--- Step: 09
--- Goal: Fill table ProductPerAllergeen with data
--- **********************************************************************************
--- Version      Date:                Author:                     Description:
--- *******      **********           ****************            ******************
--- 01           10-09-2026           Kelvin                      New
--- **********************************************************************************/
-
+-- Stap 09: Data toevoegen aan ProductPerAllergeen
 INSERT INTO ProductPerAllergeen
 (
      Id
@@ -233,71 +223,7 @@ VALUES
     ,(12, 13, 5, 1, NULL, SYSDATE(6), SYSDATE(6));
 
 
--- Step: 10
--- Goal: Create a new table Leverancier
--- **********************************************************************************
--- Version      Date:                Author:                     Description:
--- *******      **********           ****************            ******************
--- 01           10-09-2026           Kelvin                      New
--- **********************************************************************************/
-
--- Drop table Leverancier
-
-CREATE TABLE IF NOT EXISTS Leverancier
-(
-     Id                 TINYINT      UNSIGNED    NOT NULL    AUTO_INCREMENT
-    ,Naam               VARCHAR(50)              NOT NULL
-    ,ContactPersoon     VARCHAR(50)              NOT NULL
-    ,LeverancierNummer  VARCHAR(20)              NOT NULL
-    ,Mobiel             VARCHAR(20)              NOT NULL
-    ,IsActief           BIT                      NOT NULL    DEFAULT 1
-    ,Opmerkingen        VARCHAR(250)                 NULL    DEFAULT NULL
-    ,DatumAangemaakt    DateTime(6)              NOT NULL
-    ,DatumGewijzigd     DateTime(6)              NOT NULL
-
-    ,CONSTRAINT PK_Leverancier_Id PRIMARY KEY CLUSTERED(Id)
-) ENGINE=InnoDB;
-
-
--- Step: 11
--- Goal: Fill table Leverancier with data
--- **********************************************************************************
--- Version      Date:                Author:                     Description:
--- *******      **********           ****************            ******************
--- 01           10-09-2026           Kelvin                      New
--- **********************************************************************************/
-
-INSERT INTO Leverancier
-(
-     Id
-    ,Naam
-    ,ContactPersoon
-    ,LeverancierNummer
-    ,Mobiel
-    ,IsActief
-    ,Opmerkingen
-    ,DatumAangemaakt
-    ,DatumGewijzigd
-)
-VALUES
-     (1, 'Venco', 'Bert van Linge', 'L1029384719', '06-28493827', 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,(2, 'Astra Sweets', 'Jasper del Monte', 'L1029284315', '06-39398734', 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,(3, 'Haribo', 'Sven Stalman', 'L1029324748', '06-24383291', 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,(4, 'Basset', 'Joyce Stelterberg', 'L1023845773', '06-48293823', 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,(5, 'De Bron', 'Remco Veenstra', 'L1023857736', '06-34291234', 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,(6, 'Quality Street', 'Johan Nooij','L1029234586', '06-23458456',1, NULL, SYSDATE(6), SYSDATE(6));
-
-
--- Step: 12
--- Goal: Create a new table ProductPerLeverancier
--- **********************************************************************************
--- Version      Date:                Author:                     Description:
--- *******      **********           ****************            ******************
--- 01           10-09-2026           Kelvin                      New
--- **********************************************************************************/
-
--- Drop table ProductPerLeverancier
-
+-- Stap 12: Tabel ProductPerLeverancier aanmaken
 CREATE TABLE IF NOT EXISTS ProductPerLeverancier
 (
      Id                             TINYINT      UNSIGNED    NOT NULL    AUTO_INCREMENT
@@ -305,7 +231,7 @@ CREATE TABLE IF NOT EXISTS ProductPerLeverancier
     ,ProductId                      TINYINT      UNSIGNED    NOT NULL
     ,DatumLevering                  DATE                     NOT NULL
     ,Aantal                         INT          UNSIGNED    NOT NULL
-    ,DatumEerstVolgendeLevering     DATE                         NULL    DEFAULT NULL
+    ,DatumEerstVolgendeLevering     DATE                      NULL    DEFAULT NULL
     ,IsActief                       BIT                      NOT NULL    DEFAULT 1
     ,Opmerkingen                    VARCHAR(250)                 NULL    DEFAULT NULL
     ,DatumAangemaakt                DateTime(6)              NOT NULL
@@ -358,4 +284,19 @@ VALUES
     ,(17, 5, 13, '2024-10-12', 23, NULL, 1, NULL, SYSDATE(6), SYSDATE(6));
     
     
-  
+CREATE TABLE Contact (
+    Id INT PRIMARY KEY,
+    Straat VARCHAR(100) NOT NULL,
+    Huisnummer INT NOT NULL,
+    Postcode VARCHAR(10) NOT NULL,
+    Stad VARCHAR(100) NOT NULL
+);
+
+INSERT INTO Contact (Id, Straat, Huisnummer, Postcode, Stad)
+VALUES
+(1, 'Van Gilslaan', 34, '1045CB', 'Hilvarenbeek'),
+(2, 'Den Dolderpad', 2, '1067RC', 'Utrecht'),
+(3, 'Fredo Raalteweg', 257, '1236OP', 'Nijmegen'),
+(4, 'Bertrand Russellhof', 21, '2034AP', 'Den Haag'),
+(5, 'Leon van Bonstraat', 213, '145XC', 'Lunteren'),
+(6, 'Bea van Lingenlaan', 234, '2197FG', 'Sint Pancras');

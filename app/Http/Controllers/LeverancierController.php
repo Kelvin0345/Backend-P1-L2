@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\LeverancierModel;
 use Illuminate\Http\Request;
 
+
 class LeverancierController extends Controller
 {
 
@@ -123,52 +124,24 @@ class LeverancierController extends Controller
             ->with('success', 'De levering is succesvol verwerkt.');
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function allLeverancierUpdate()
     {
-        //
+        $allLeverancierUpdate = $this->leverancierModel->SP_GetAllLeverancierUpdate();
+
+        return view('Manager.showLeverancier', [
+            'title' => 'Overzicht Leverancier',
+            'allLeverancierUpdate' => $allLeverancierUpdate,
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function leverancierDetails($id)
     {
-        //
-    }
+        $result = $this->leverancierModel->SP_GetLeverancierByUpdateId($id);
+        $allLeverancierUpdateId = $result[0] ?? null;
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return view('Manager.leverancierDetails', [
+            'title' => 'Leverancier details',
+            'allLeverancierUpdateId' => $allLeverancierUpdateId,
+        ]);
     }
 }

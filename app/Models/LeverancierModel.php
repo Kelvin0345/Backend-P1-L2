@@ -54,4 +54,19 @@ class LeverancierModel extends Model
     {
         return DB::table('leverancier')->where('Id', $leverancierId)->first();
     }
+
+    public function sp_GetAllLeverancierUpdate()
+    {
+        return DB::select('CALL SP_GetAllLeverancierUpdate');
+    }
+
+    public function sp_GetLeverancierByUpdateId($id)
+    {
+        return DB::select('CALL SP_GetLeverancierByUpdateId(:id)', [
+            'id' => $id
+        ]);
+        
+    }
+
+
 }
